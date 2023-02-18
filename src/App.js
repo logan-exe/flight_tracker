@@ -22,12 +22,12 @@ function App() {
     axios
       .request(options)
       .then(function (response) {
-        console.log(response.data);
         setFlightStatus(response.data);
         setLoading(false);
       })
       .catch(function (error) {
         console.error(error);
+        alert("Some error occurred! Try again later!");
         setLoading(false);
       });
   };
@@ -48,34 +48,41 @@ function App() {
 
       <center>
         <div className="table">
-          {flightStatus.results.length !== 0 ? (
-            <table>
-              <thead>
-                <th>Flight id</th>
-                <th>Flight Label</th>
-                <th>lon</th>
-                <th>lat</th>
-                <th>Route</th>
+          {flightStatus ? (
+            <>
+              {" "}
+              {flightStatus.results.length !== 0 ? (
+                <table>
+                  <thead>
+                    <th>Flight id</th>
+                    <th>Flight Label</th>
+                    <th>lon</th>
+                    <th>lat</th>
+                    <th>Route</th>
 
-                <th>Type</th>
-              </thead>
-              <tbody>
-                {flightStatus.results.map((flight, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{flight.id}</td>
-                      <td>{flight.label}</td>
-                      <td>{flight.detail.lon}</td>
-                      <td>{flight.detail.lat}</td>
-                      <td>{flight.detail.route}</td>
-                      <td>{flight.type}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                    <th>Type</th>
+                  </thead>
+                  <tbody>
+                    {flightStatus?.results.map((flight, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{flight.id}</td>
+                          <td>{flight.label}</td>
+                          <td>{flight.detail.lon}</td>
+                          <td>{flight.detail.lat}</td>
+                          <td>{flight.detail.route}</td>
+                          <td>{flight.type}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              ) : (
+                "No data to show for the given input. Search for some other flights"
+              )}{" "}
+            </>
           ) : (
-            "No Data To Show. Search for Flights"
+            "Search for a FLight."
           )}
         </div>
       </center>
