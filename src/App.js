@@ -82,7 +82,7 @@ function App() {
               )}{" "}
             </>
           ) : (
-            "Search for a FLight."
+            "Search for a Flight."
           )}
         </div>
       </center>
